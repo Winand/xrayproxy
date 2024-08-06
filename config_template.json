@@ -1,0 +1,80 @@
+{
+  "log": {
+    "loglevel": "warning"
+  },
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "${CFG_SCHEME}",
+      "settings": {
+        "vnext": [
+          {
+            "address": "${CFG_HOST}",
+            "port": ${CFG_PORT},
+            "users": [
+              {
+                "id": "${CFG_USER}",
+                "flow": "${CFG_FLOW}",
+                "encryption": "none",
+                "level": 0
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "${CFG_TYPE}",
+        "realitySettings": {
+          "fingerprint": "${CFG_FP}",
+          "publicKey": "${CFG_PBK}",
+          "serverName": "${CFG_SNI}",
+          "shortId": "${CFG_SID}",
+          "spiderX": "${CFG_SPX}"
+        },
+        "security": "${CFG_SECURITY}"
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {}
+    },
+    {
+      "tag": "blocked",
+      "protocol": "blackhole",
+      "settings": {}
+    }
+  ],
+  "inbounds": [
+    {
+      "tag": "dns-in",
+      "port": 5353,
+      "listen": "0.0.0.0",
+      "protocol": "dokodemo-door",
+      "settings": {
+        "address": "1.1.1.1",
+        "port": 53,
+        "network": "tcp,udp"
+      }
+    },
+    {
+      "tag": "socks",
+      "port": 1080,
+      "listen": "0.0.0.0",
+      "protocol": "socks",
+      "settings": {
+        "udp": true
+      }
+    },
+    {
+      "tag": "http",
+      "port": 8123,
+      "listen": "0.0.0.0",
+      "protocol": "http"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": []
+  }
+}
