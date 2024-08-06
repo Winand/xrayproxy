@@ -19,7 +19,4 @@ EOF
 # done
 
 envsubst < /config_template.json > /config.json
-cat /config.json
-printenv
 xray -c /config.json
-
